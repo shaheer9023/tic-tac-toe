@@ -18,12 +18,12 @@ const Square: React.FC<{ value: 'X' | 'O' | null; onClick: () => void }> = ({ va
 
 // Board component
 const Board: React.FC = () => {
-  const [squares, setSquares] = useState(Array(9).fill(null));
+  const [squares, setSquares] = useState<Array<'X' | 'O' | null>>(Array(9).fill(null));
   const [xIsNext, setXIsNext] = useState(true);
 
   const handleClick = (index: number) => {
     const newSquares = squares.slice();
-    if (calculateWinner(squares) || newSquares[index]) return;
+    if (calculateWinner(newSquares) || newSquares[index]) return;
     newSquares[index] = xIsNext ? 'X' : 'O';
     setSquares(newSquares);
     setXIsNext(!xIsNext);
@@ -42,15 +42,23 @@ const Board: React.FC = () => {
   );
 
   const winner = calculateWinner(squares);
+  const isDraw = squares.every(square => square !== null);
   let status;
   if (winner) {
     status = 'Winner: ' + winner;
+  } else if (isDraw) {
+    status = 'Draw!';
   } else {
     status = 'Next player: ' + (xIsNext ? 'X' : 'O');
   }
 
+  // Automatically reset game if there's a winner or a draw
+  if (winner || isDraw) {
+    setTimeout(() => handleReset(), 3000); // Reset after 3 seconds
+  }
+
   return (
-    <div className="flex flex-col items-center bg-white p-6 rounded-lg shadow-2xl border-8 border-blue-900">
+    <div className="flex flex-col items-center bg-white p-6 rounded-lg shadow-2xl border-8 border-blue-900 max-w-md w-full mx-auto">
       <div className="status text-2xl font-bold mb-6 text-gray-800">{status}</div>
       <div className="grid grid-cols-3 gap-2 mb-6">
         {renderSquare(0)}
@@ -96,8 +104,12 @@ function calculateWinner(squares: Array<'X' | 'O' | null>) {
 
 export default function HomePage() {
   return (
-    <div className="flex items-center justify-center h-screen bg-green-400">
-      <Board />
+    <div className="flex flex-col min-h-screen bg-green-400 p-6">
+      <h1 className="text-4xl font-bold mb-2 text-blue-900 text-center">Tic Tac Toe Game</h1>
+      <div className="text-2xl font-semibold text-center mb-8 text-gray-800">Made by <strong>Shaheer Ahmad</strong></div>
+      <div className="flex-grow flex items-center justify-center">
+        <Board />
+      </div>
     </div>
   );
 }
