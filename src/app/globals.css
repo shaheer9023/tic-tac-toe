@@ -5,14 +5,12 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Proza+Libre:wght@400;700&display=swap');
 
 body {
   font-family: 'Roboto', sans-serif;
-  @apply bg-green-400;
   margin: 0;
   padding: 0;
-}
-
-h1, .text-gray-800 {
-  font-family: 'Playfair Display', serif;
+  background: linear-gradient(to right, #4a154b, #39d353); /* Dark purple to parrot green gradient */
+  min-height: 100vh; /* Ensure the body covers the entire viewport height */
 }

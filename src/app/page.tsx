@@ -7,10 +7,12 @@ import React, { useState } from 'react';
 const Square: React.FC<{ value: 'X' | 'O' | null; onClick: () => void }> = ({ value, onClick }) => (
   <button
     onClick={onClick}
-    className={`w-24 h-24 bg-gray-300 text-gray-800 text-4xl font-bold flex items-center justify-center
-                border-4 border-blue-500 rounded-lg shadow-md hover:bg-gray-200 transition-colors duration-200
-                ${value === 'X' ? 'bg-blue-100' : value === 'O' ? 'bg-green-100' : 'bg-gray-300'} 
-                ${value ? 'cursor-not-allowed' : 'cursor-pointer'}`}
+    className={`w-24 h-24 flex items-center justify-center text-4xl font-bold
+                border-4 rounded-lg transition-transform transform 
+                ${value === 'X' ? 'bg-yellow-300 text-yellow-800 border-yellow-500' : 
+                  value === 'O' ? 'bg-lime-300 text-lime-800 border-lime-500' : 
+                  'bg-gray-200 text-gray-800 border-gray-500'} 
+                shadow-lg hover:shadow-xl hover:scale-105`}
   >
     {value}
   </button>
@@ -58,7 +60,7 @@ const Board: React.FC = () => {
   }
 
   return (
-    <div className="flex flex-col items-center bg-white p-6 rounded-lg shadow-2xl border-8 border-blue-900 max-w-md w-full mx-auto">
+    <div className="flex flex-col items-center bg-purple-100 p-6 rounded-lg border-8 border-purple-700 shadow-2xl">
       <div className="status text-2xl font-bold mb-6 text-gray-800">{status}</div>
       <div className="grid grid-cols-3 gap-2 mb-6">
         {renderSquare(0)}
@@ -73,7 +75,7 @@ const Board: React.FC = () => {
       </div>
       <button
         onClick={handleReset}
-        className="px-6 py-3 bg-gradient-to-r from-green-500 to-blue-500 text-white rounded-lg shadow-lg transform transition-transform duration-200 hover:scale-105 hover:shadow-xl"
+        className="px-6 py-3 bg-gradient-to-r from-purple-700 to-purple-900 text-white rounded-lg shadow-lg transform transition-transform duration-200 hover:scale-105"
       >
         Reset Game
       </button>
@@ -102,10 +104,10 @@ function calculateWinner(squares: Array<'X' | 'O' | null>) {
   return null;
 }
 
-export default function HomePage() {
+const HomePage: React.FC = () => {
   return (
-    <div className="flex flex-col min-h-screen bg-green-400 p-6">
-      <h1 className="text-4xl font-bold mb-2 text-blue-900 text-center">Tic Tac Toe Game</h1>
+    <div className="flex flex-col min-h-screen bg-gradient-to-br from-purple-800 to-purple-600 p-6">
+      <h1 className="text-4xl font-bold mb-2 text-purple-100 text-center font-proza">Tic Tac Toe Game</h1>
       <div className="text-2xl font-semibold text-center mb-8 text-gray-800">Made by <strong>Shaheer Ahmad</strong></div>
       <div className="flex-grow flex items-center justify-center">
         <Board />
@@ -113,3 +115,5 @@ export default function HomePage() {
     </div>
   );
 }
+
+export default HomePage;
